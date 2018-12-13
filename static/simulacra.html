@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulacra</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.5.min.css"/>
+    <script src="movies.js"></script>
+    <link rel="stylesheet" href="movies.css">
+    <script src="https://simulacra.js.org/simulacra.min.js"></script>
+</head>
+<body>
+    <template id="app">
+
+        <header>
+
+            <h1>Simulacra</h1>
+            
+            <h2><span class="movie-length">0</span> Movies</h2>
+
+            <div>
+                <label>
+                    <span>Search :</span><input type="text" class="">
+                </label>
+            </div>
+
+            <div>
+                <label>
+                    <input type="checkbox" v-model="stared"> Only &#9733;
+                </label>
+            </div>
+
+        </header>
+
+        <table>
+            <thead>
+                <th width="80%">Title</th>
+                <th width="10%">Rating</th>
+                <th width="10%">Stared</th>
+            </thead>
+            <tbody>
+                <tr class="movies">
+                    <td class="movie-title"></td>
+                    <td class="movie-rating"></td>
+                    <td class="movie-stared">
+                        <a class="toggle">&#9733;</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </template>
+
+    <div id="app"></div>
+
+    <script type="text/javascript">
+        var bindObject = window.simulacra;
+        var template = document.getElementById('template');
+
+
+        var state = {
+            movieLength: 0
+        };
+
+        var node = bindObject(state, [template, {
+          movieLength: '.movie-length',
+          details: [ '.details', {
+            size: '.size',
+            vendor: '.vendor'
+          }]
+        }]);
+
+        document.getElementById('app').appendChild(node);
+
+    </script>
+</body>
+</html>

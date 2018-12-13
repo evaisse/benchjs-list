@@ -1,0 +1,72 @@
+<movies>
+
+    <section>
+        <header>
+
+            <h1>
+                <a href="https://riot.js.org">RiotJS</a>
+            </h1>
+
+            <h2>{ movies.length } Movies</h2>
+
+
+            <div>
+                <label>
+                    Search : <input type="text" name="filter" oninput={ updateFilter }>
+                </label>
+            </div>
+
+            <div>
+                <label>
+                    <input type="checkbox" value="1" name="stared" onchange={ updateFilter }> Only &#9733;
+                </label>
+            </div>
+
+        </header>
+
+        <table>
+            <thead>
+                <th width="80%">Title</th>
+                <th width="10%">Rating</th>
+                <th width="10%">Stared</th>
+            </thead>
+            <tbody>
+                <tr each={ movie in filterMovies(movies) } no-reorder>
+                    <td>{ movie.title }</td>
+                    <td>{ movie.rating }</td>
+                    <td>
+                        <a onclick={ movie.stared = !movie.stared }>{ movie.stared ? "&#9734;" : "&#9733;" }</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <script type="text/javascript">
+        var self = this;
+
+        self.movies = [];
+
+        self.updateFilter = () => {
+            self.update();
+        }
+
+        self.filterMovies = () => {
+            var filters = {
+                filter: ""+self.filter.value,
+                stared: false,
+            };
+            console.log(filters);
+            return self.movies.filter((m) => {
+                return filterMovie(m, filters);
+            })
+        };
+
+        self.on('mount', () => {
+            getMovies().then((movies) => {
+                self.update({ movies: movies, allMovies: movies });
+            });
+        });
+
+    </script>
+</movies>

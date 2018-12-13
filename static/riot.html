@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RiotJS</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.5.min.css"/>
+    <script src="movies.js"></script>
+    <link rel="stylesheet" href="movies.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/2.6.8/riot+compiler.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <movies></movies>    
+    </div>
+    
+
+    <script type="riot/tag" src="riot-movies.tag.html"></script>
+    <script>
+        riot.mount('*');
+    </script>
+
+</body>
+</html>
