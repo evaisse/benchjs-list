@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mithril 0.2.x</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.5.min.css" />
+    <script src="movies.js"></script>
+    <link rel="stylesheet" href="movies.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mithril/0.2.8/mithril.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+
+
+
+    var MovieList = {
+
+        controller: function () {
+
+            let movies = m.prop([]);
+            let filter = m.prop("");
+            let stared = m.prop(false);
+
+            console.time('load movies');
+
+            getMovies().then((list) => {
+                movies(list);
+                console.timeEnd('load movies');
+                console.log(list);
+                m.redraw();
+            });
+
+            return {
+                filter: filter,
+                stared: stared,
+                movies: movies,
+                filteredMovies() {
+                    let filters = { filter: filter(), stared: stared() };
+                    console.time(JSON.stringify(filters));
+                    let all = movies().filter((i) => {
+                        return filterMovie(i, filters);
+                    });
+                    console.timeEnd(JSON.stringify(filters));
+                    return all;
+                },
+            };
+        },
+
+
+        view: function (ctrl) {
+
+            window.ctrl = ctrl;
+
+            return m('div', [
+                m('header', [
+                    m('h1', [
+                        m('a[href=https://mithril.js.org/archive/v0.2.5/index.html]', 'Mithril'),
+                    ]),
+                    m('h2', [
+                        ctrl.filteredMovies().length + ' Movies'
+                    ]),
+                    m('div', [
+                        m('label', [
+                            "Search : ",
+                            m('input', {
+                                type: "search",
+                                oninput: m.withAttr('value', ctrl.filter),
+                            }),
+                        ]),
+                    ]),
+                ]),
+                m('table', [
+                    m('thead', [
+                        m('th[width=80%]', ['Title']),
+                        m('th[width=10%]', ['Rating']),
+                        m('th[width=10%]', ['Stared']),
+                    ]),
+                    m('tbody', ctrl.filteredMovies().map((movie) => {
+                        return m.component(MovieItem, { movie: movie });
+                    })),
+                ]),
+            ]);
+        },
+    };
+
+    var MoveItem = {
+
+        controller: function (opts) {
+            var ctrl = {
+                movie: m.prop(movie)
+            };
+
+            return ctrl;
+        },
+
+        view: function (ctrl) {
+            return m('tr', { key: ctrl.movie().id }, [
+                m('td', [movie.title]),
+                m('td', [movie.rating]),
+                m('td', [ 
+                    m('a', {
+                        onclick: (e) =>
+                    }, [
+                        m.trust(movie.stared ? "&#9733;" : "&#9734;")
+                    ])
+                ]),
+            ]);
+        },
+    };
+
+    m.mount(document.getElementById("app"), App);
+    </script>
+</body>
+
+</html>

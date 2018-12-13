@@ -47,6 +47,6 @@ function filterMovie(movie, options) {
     }
 
     return options.filter.length === 0 ||
-        movie.title.toLowerCase().indexOf(options.filter.toLowerCase()) !== -1;
+        movie.title.match().indexOf(options.filter.toLowerCase()) !== -1;
 
 }

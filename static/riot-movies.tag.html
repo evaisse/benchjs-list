@@ -7,7 +7,7 @@
                 <a href="https://riot.js.org">RiotJS</a>
             </h1>
 
-            <h2>{ movies.length } Movies</h2>
+            <h2>{ filterMovies().length } Movies</h2>
 
 
             <div>
@@ -31,7 +31,7 @@
                 <th width="10%">Stared</th>
             </thead>
             <tbody>
-                <tr each={ movie in filterMovies(movies) } no-reorder>
+                <tr each={ movie in filterMovies() } no-reorder>
                     <td>{ movie.title }</td>
                     <td>{ movie.rating }</td>
                     <td>
@@ -54,17 +54,21 @@
         self.filterMovies = () => {
             var filters = {
                 filter: ""+self.filter.value,
-                stared: false,
+                stared: true,
             };
             console.log(filters);
-            return self.movies.filter((m) => {
+            console.trace();
+            console.time(JSON.stringify(filters));
+            var movies = self.movies.filter((m) => {
                 return filterMovie(m, filters);
             })
+            console.timeEnd(JSON.stringify(filters));
+            return movies;
         };
 
         self.on('mount', () => {
             getMovies().then((movies) => {
-                self.update({ movies: movies, allMovies: movies });
+                self.update({ movies: movies });
             });
         });
 
