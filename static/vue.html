@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue</title>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.5.min.css"/>
+	<script src="movies.js"></script>
+	<link rel="stylesheet" href="movies.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
+
+</head>
+<body>
+	<div id="app">
+
+		<header>
+
+			<h2>Vue - {{ movies.length }} Movies</h2>
+
+			<div>
+				<label>
+					Search : <input type="text" v-model="filter">
+				</label>
+			</div>
+
+			<div>
+				<label>
+					<input type="checkbox" v-model="stared"> Only &#9733;
+				</label>
+			</div>
+
+		</header>
+
+		<table>
+			<thead>
+				<th width="80%">Title</th>
+				<th width="10%">Rating</th>
+				<th width="10%">Stared</th>
+			</thead>
+			<tbody>
+				<tr v-for="movie in allMovies" :key="movie.id" v-show="filterMovie(movie)">
+
+				</tr>
+			</tbody>
+
+		</section>
+
+	</div>
+
+	<script type="text/javascript">
+		
+
+		var app = new Vue({
+			el: "#app",
+			data() {
+				return {
+					allMovies: [],
+					filter: "",
+					stared: false
+				};
+			},
+			beforeCreate: function () {
+				getMovies().then((movies) => {
+					this.allMovies = movies;
+				});
+			},
+			methods: {
+				filterMovie(movie) {
+					return filterMovie(movie, { filter: this.filter, stared: this.stared })
+				}
+			},
+			computed: {
+				movies() {
+					return this.allMovies.filter((m) => {
+						if (this.stared && !m.stared) {
+							return false;
+						}
+						return m.length === 0 
+							|| m.title.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1;
+					});
+				}
+			}
+
+		})
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>maquette</title>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.5.min.css"/>
+	<script src="movies.js"></script>
+	<link rel="stylesheet" href="movies.css">
+
+	<script src="//unpkg.com/maquette@3.3.0/dist/maquette.umd.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+
+	<script>
+
+	var h = maquette.h;
+	var projector = maquette.createProjector();
+	var movies = [];
+	var filter = '';
+	var stared = false;
+	var filteredMovies = () => {
+		return movies.filter((m) => {
+			return filterMovie(m, {
+				stared: stared,
+				filter: filter
+			});
+		});
+	}
+
+	getMovies().then((m) => {
+		movies = m;
+		projector.scheduleRender();
+	});
+
+	function render() {
+	  return h('div', [
+	  	h('header', [
+	  		h('h2', [filteredMovies().length + ' movies']),
+	  		h('div', [
+	  			h('label', [
+	  				"Search",
+	  				h('input', {
+	  					type: "search",
+		  				oninput: (e) => {
+		  					filter = e.target.value;
+		  				},
+		  			}),
+	  			]),
+	  		]),
+
+	  	]),
+	  	h('table', [
+	  		h('thead', [
+	  			h('th', ['Title']),
+	  			h('th', ['Ra']),
+	  			h('th', ['Stared']),
+	  		]),
+	  		h('tbody', [
+	  			filteredMovies().map((m) => {
+		  			return h('tr', {key: m.id}, [
+		  				h('td', [m.title]),
+		  				h('td', [m.rating]),
+		  				h('td', [m.stared ? "&#9733;" : "&#9734;"]),
+		  			]);
+		  		})
+		  	])
+	  	])
+	  ]);
+	}
+
+	// Initializes the projector
+	projector.append(document.getElementById('app'), render);
+
+	</script>
+</body>
+</html>

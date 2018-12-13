@@ -1,0 +1,4 @@
+{
+  test: /\.imba$/,
+  loader: 'imba/loader'
+}

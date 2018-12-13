@@ -1,0 +1,12 @@
+
+#app {
+	background: white;
+	max-width: 44rem;
+	margin: auto;
+	border-radius: 1rem;
+    padding: 1rem;
+}
+
+.movie {
+	display: block;
+}
