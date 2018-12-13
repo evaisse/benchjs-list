@@ -81,7 +81,7 @@ var movies = [];
 
 
 
-getMovies().then(function(some) {
+getMovies(5000).then(function(some) {
 	movies = some;
 	return Imba.commit();
 });
@@ -106,38 +106,41 @@ var App = Imba.defineTag('App', 'div', function(tag){
 		
 		var $ = this.$, self = this;
 		return self.$open(0).setChildren($.$ = $.$ || [
-			_1('header',$,0,self).setContent(
+			_1('header',$,0,self).setContent([
 				
-				$[1] || _1('h2',$,1,0)
-			,2),
-			_1('table',$,9,self).setContent([
-				_1('thead',$,10,9).setContent([
-					_1('th',$,11,10).css('width',"80%").setText("Title"),
-					_1('th',$,12,10).css('width',"10%").setText("Rating"),
-					_1('th',$,13,10).css('width',"10%").setText("Stared")
+				_1('h1',$,1,0).setText("Imba"),
+				
+				_1('h2',$,2,0),
+				
+				_1('div',$,3,0).setContent(
+					$[4] || _1('label',$,4,3).setContent(["Search : ",$[5] || _1('input',$,5,4).setType("text")],2)
+				,2),
+				
+				_1('div',$,6,0).setContent([
+					_1('label',$,7,6).setContent(
+						$[8] || _1('input',$,8,7).setType("checkbox").setText("Only ★")
+					,2),
+					
+					_1('button',$,9,6).on$(0,['tap','addItem'],self).setText("add")
+				],2)
+			],2),
+			_1('table',$,10,self).setContent([
+				_1('thead',$,11,10).setContent([
+					_1('th',$,12,11).css('width',"80%").setText("Title"),
+					_1('th',$,13,11).css('width',"10%").setText("Rating"),
+					_1('th',$,14,11).css('width',"10%").setText("Stared")
 				],2),
 				
-				_1('tbody',$,14,9)
+				_1('tbody',$,15,10)
 			],2)
 		],2).synced((
-			$[1].setContent([("Vue - " + (self.data().length) + " Movies"),$[2] || _1('div',$,2,1).setContent(
-				$[3] || _1('label',$,3,2).setContent(["Search : ",$[4] || _1('input',$,4,3).setType("text")],2)
-			,2),
-			
-			$[5] || _1('div',$,5,1).setContent(
-				$[6] || _1('label',$,6,5).setContent(
-					$[7] || _1('input',$,7,6).setType("checkbox").setText("Only ★")
-				,2)
-			,2),
-			
-			$[8] || _1('button',$,8,1).on$(0,['tap','addItem'],self).setText("add")],1).end((
-				$[4].bindData(self,'filter',[]).end(),
-				$[7].bindData(self,'stared',[]).end()
-			,true)),
-			$[11].end(),
+			$[2].setText("" + (self.data().length) + " Movies"),
+			$[5].bindData(self,'filter',[]).end(),
+			$[8].bindData(self,'stared',[]).end(),
 			$[12].end(),
 			$[13].end(),
-			$[14].setContent(
+			$[14].end(),
+			$[15].setContent(
 				(function tagLoop($0) {
 					var t0;
 					for (let i = 0, items = iter$(self.data()), len = $0.taglen = items.length, movie; i < len; i++) {
@@ -152,7 +155,7 @@ var App = Imba.defineTag('App', 'div', function(tag){
 							,true))
 						],2,1) : void(0),3);
 					};return $0;
-				})($[15] || _2($,15,$[14]))
+				})($[16] || _2($,16,$[15]))
 			,4)
 		,true));
 	};

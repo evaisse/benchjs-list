@@ -5,16 +5,16 @@
 	<link rel="stylesheet" href="https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.5.min.css"/>
 	<script src="movies.js"></script>
 	<link rel="stylesheet" href="movies.css">
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
-
 </head>
 <body>
 	<div id="app">
 
 		<header>
 
-			<h2>Vue - {{ movies.length }} Movies</h2>
+			<h1>Vue</h1>
+			
+			<h2>{{ movies.length }} Movies</h2>
 
 			<div>
 				<label>
@@ -37,8 +37,12 @@
 				<th width="10%">Stared</th>
 			</thead>
 			<tbody>
-				<tr v-for="movie in allMovies" :key="movie.id" v-show="filterMovie(movie)">
-
+				<tr v-for="movie in movies" :key="movie.id">
+					<td>{{ movie.title }}</td>
+					<td>{{ movie.rating }}</td>
+					<td>
+						<a @click="movie.stared = !movie.stared">{{ movie.stared ? "&#9733;" : "&#9734;" }}</a>
+					</td>
 				</tr>
 			</tbody>
 
@@ -70,13 +74,7 @@
 			},
 			computed: {
 				movies() {
-					return this.allMovies.filter((m) => {
-						if (this.stared && !m.stared) {
-							return false;
-						}
-						return m.length === 0 
-							|| m.title.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1;
-					});
+					return this.allMovies.filter((m) => this.filterMovie(m));
 				}
 			}
 

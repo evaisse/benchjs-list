@@ -10,7 +10,7 @@ var movies = []
 # 	console.log state
 # 	Imba.commit()
 
-getMovies().then do |some|
+getMovies(5000).then do |some|
 	movies = some
 	Imba.commit()
 
@@ -28,15 +28,17 @@ tag App < div
 		<self>
 			<header>
 
-				<h2> "Vue - {data:length} Movies"
+				<h1> "Imba"
+				
+				<h2> "{data:length} Movies"
 
-					<div>
-						<label> "Search : "
-							<input[filter] type="text">
+				<div>
+					<label> "Search : "
+						<input[filter] type="text">
 
-					<div>
-						<label>
-							<input[stared] type="checkbox"> "Only ★"
+				<div>
+					<label>
+						<input[stared] type="checkbox"> "Only ★"
 
 					<button :tap.addItem> "add"
 			<table>

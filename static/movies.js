@@ -28,34 +28,25 @@
 */
 
 function getMovies(limit) {
-    var limit = limit || 5000;
+    var limit = limit || 50000;
 
     return fetch('./movies-wikipedia.json').then((r) => r.json()).then((movies) => {
-    	var id = 1;
-        return movies.map((movie) => {
-        	movie.id = id++;
+        var id = 1;
+        return movies.slice(0, limit).map((movie) => {
+            movie.id = id++;
             movie.stared = (movie.title.indexOf('b') > 4);
             return movie;
-        });
-    });
-
-    return fetch('./movies.json').then((r) => r.text()).then((text) => {
-        return text.split("\n").map((json) => {
-            var v = JSON.parse(json);
-            v.fields.id = v.id;
-            v.fields.stared = (v.fields.title.indexOf('b') > 4);
-            return v.fields;
         });
     });
 }
 
 function filterMovie(movie, options) {
 
-	if (options.stared && !movie.stared) {
-		return false;
-	}
+    if (options.stared && !movie.stared) {
+        return false;
+    }
 
-	return options.filter.length === 0 
-		|| movie.title.toLowerCase().indexOf(options.filter.toLowerCase()) !== -1;
+    return options.filter.length === 0 ||
+        movie.title.toLowerCase().indexOf(options.filter.toLowerCase()) !== -1;
 
 }
