@@ -28,7 +28,10 @@
 */
 
 function getMovies(limit) {
-    var limit = limit || 50000;
+
+    var limit = limit || 5000;
+
+    console.log(limit);
 
     return fetch('./movies-wikipedia.json').then((r) => r.json()).then((movies) => {
         var id = 1;
@@ -47,6 +50,11 @@ function filterMovie(movie, options) {
     }
 
     return options.filter.length === 0 ||
-        movie.title.match().indexOf(options.filter.toLowerCase()) !== -1;
+        movie.title.toLowerCase().indexOf(options.filter.toLowerCase()) !== -1;
 
+}
+
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { getMovies: getMovies, filterMovie: filterMovie };
 }
