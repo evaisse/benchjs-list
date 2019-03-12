@@ -10,7 +10,7 @@ var movies = []
 # 	console.log state
 # 	Imba.commit()
 
-getMovies(5000).then do |some|
+getMovies().then do |some|
 	movies = some
 	Imba.commit()
 
@@ -29,7 +29,7 @@ tag App < div
 			<header>
 
 				<h1> "Imba"
-				
+
 				<h2> "{data:length} Movies"
 
 				<div>
@@ -48,8 +48,8 @@ tag App < div
 					<th css:width="10%"> "Stared"
 
 				<tbody> 
-					for movie in data
-						<tr> if filterMovie(movie, {filter: filter, stared: stared})
+					for movie in data when filterMovie(movie, {filter: filter, stared: stared})
+						<tr> 
 							<td> movie:title
 							<td> movie:rating
 							<td>

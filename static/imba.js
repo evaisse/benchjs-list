@@ -60,118 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-function iter$(a){ return a ? (a.toArray ? a.toArray() : a) : []; };
-var Imba = __webpack_require__(3), _2 = Imba.createTagList, _1 = Imba.createElement;
-// externs;
-// externs;
-
-
-var movies = [];
-
-
-
-
-
-
-
-getMovies(5000).then(function(some) {
-	movies = some;
-	return Imba.commit();
-});
-
-var App = Imba.defineTag('App', 'div', function(tag){
-	
-	tag.prototype.__stared = {'default': false,name: 'stared'};
-	tag.prototype.stared = function(v){ return this._stared; }
-	tag.prototype.setStared = function(v){ this._stared = v; return this; }
-	tag.prototype._stared = false;
-	tag.prototype.__filter = {'default': "",name: 'filter'};
-	tag.prototype.filter = function(v){ return this._filter; }
-	tag.prototype.setFilter = function(v){ this._filter = v; return this; }
-	tag.prototype._filter = "";
-	
-	
-	tag.prototype.addItem = function (){
-		return this.data().unshift({title: "a"});
-	};
-	
-	tag.prototype.render = function (){
-		
-		var $ = this.$, self = this;
-		return self.$open(0).setChildren($.$ = $.$ || [
-			_1('header',$,0,self).setContent([
-				
-				_1('h1',$,1,0).setText("Imba"),
-				
-				_1('h2',$,2,0),
-				
-				_1('div',$,3,0).setContent(
-					$[4] || _1('label',$,4,3).setContent(["Search : ",$[5] || _1('input',$,5,4).setType("text")],2)
-				,2),
-				
-				_1('div',$,6,0).setContent([
-					_1('label',$,7,6).setContent(
-						$[8] || _1('input',$,8,7).setType("checkbox").setText("Only ★")
-					,2),
-					
-					_1('button',$,9,6).on$(0,['tap','addItem'],self).setText("add")
-				],2)
-			],2),
-			_1('table',$,10,self).setContent([
-				_1('thead',$,11,10).setContent([
-					_1('th',$,12,11).css('width',"80%").setText("Title"),
-					_1('th',$,13,11).css('width',"10%").setText("Rating"),
-					_1('th',$,14,11).css('width',"10%").setText("Stared")
-				],2),
-				
-				_1('tbody',$,15,10)
-			],2)
-		],2).synced((
-			$[2].setText("" + (self.data().length) + " Movies"),
-			$[5].bindData(self,'filter',[]).end(),
-			$[8].bindData(self,'stared',[]).end(),
-			$[12].end(),
-			$[13].end(),
-			$[14].end(),
-			$[15].setContent(
-				(function tagLoop($0) {
-					var t0;
-					for (let i = 0, items = iter$(self.data()), len = $0.taglen = items.length, movie; i < len; i++) {
-						movie = items[i];
-						(t0 = $0[i] || (t0=_1('tr',$0,i))).setContent(filterMovie(movie,{filter: self.filter(),stared: self.stared()}) ? Imba.static([
-							(t0.$.A || _1('td',t0.$,'A',t0)).setContent(movie.title,3),
-							(t0.$.B || _1('td',t0.$,'B',t0)).setContent(movie.rating,3),
-							(t0.$.C || _1('td',t0.$,'C',t0).setContent(
-								t0.$.D || _1('a',t0.$,'D','C')
-							,2)).end((
-								t0.$.D.on$(0,['click',function() { return movie.stared = !movie.stared; }],self).setText("" + (movie.stared ? "★" : "☆"))
-							,true))
-						],2,1) : void(0),3);
-					};return $0;
-				})($[16] || _2($,16,$[15]))
-			,4)
-		,true));
-	};
-});
-
-
-Imba.mount((t0 = (t0=_1('div')).setId('app')).setTemplate(function() {
-	var $ = this.$, t0;
-	return ($[0] || _1(App,$,0,t0)).setData(movies).end();
-}).end());
-
-
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports) {
 
 
@@ -391,10 +284,10 @@ module.exports = Imba;
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Imba = __webpack_require__(1);
+var Imba = __webpack_require__(0);
 
 Imba.Pointer = function Pointer(){
 	this._button = -1;
@@ -462,6 +355,116 @@ Imba.Pointer.prototype.y = function (){
 
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+function iter$(a){ return a ? (a.toArray ? a.toArray() : a) : []; };
+var Imba = __webpack_require__(3), _3 = Imba.createTagList, _2 = Imba.createTagMap, _1 = Imba.createElement;
+// externs;
+// externs;
+
+
+var movies = [];
+
+
+
+
+
+
+
+getMovies().then(function(some) {
+	movies = some;
+	return Imba.commit();
+});
+
+var App = Imba.defineTag('App', 'div', function(tag){
+	
+	tag.prototype.__stared = {'default': false,name: 'stared'};
+	tag.prototype.stared = function(v){ return this._stared; }
+	tag.prototype.setStared = function(v){ this._stared = v; return this; }
+	tag.prototype._stared = false;
+	tag.prototype.__filter = {'default': "",name: 'filter'};
+	tag.prototype.filter = function(v){ return this._filter; }
+	tag.prototype.setFilter = function(v){ this._filter = v; return this; }
+	tag.prototype._filter = "";
+	
+	
+	tag.prototype.addItem = function (){
+		return this.data().unshift({title: "a"});
+	};
+	
+	tag.prototype.render = function (){
+		
+		var $ = this.$, self = this;
+		return self.$open(0).setChildren($.$ = $.$ || [
+			_1('header',$,0,self).setContent([
+				
+				_1('h1',$,1,0).setText("Imba"),
+				
+				_1('h2',$,2,0),
+				
+				_1('div',$,3,0).setContent(
+					$[4] || _1('label',$,4,3).setContent(["Search : ",$[5] || _1('input',$,5,4).setType("text")],2)
+				,2),
+				
+				_1('div',$,6,0).setContent([
+					_1('label',$,7,6).setContent(
+						$[8] || _1('input',$,8,7).setType("checkbox").setText("Only ★")
+					,2),
+					
+					_1('button',$,9,6).on$(0,['tap','addItem'],self).setText("add")
+				],2)
+			],2),
+			_1('table',$,10,self).setContent([
+				_1('thead',$,11,10).setContent([
+					_1('th',$,12,11).css('width',"80%").setText("Title"),
+					_1('th',$,13,11).css('width',"10%").setText("Rating"),
+					_1('th',$,14,11).css('width',"10%").setText("Stared")
+				],2),
+				
+				_1('tbody',$,15,10)
+			],2)
+		],2).synced((
+			$[2].setText("" + (self.data().length) + " Movies"),
+			$[5].bindData(self,'filter',[]).end(),
+			$[8].bindData(self,'stared',[]).end(),
+			$[12].end(),
+			$[13].end(),
+			$[14].end(),
+			$[15].setContent(
+				(function tagLoop($0) {
+					var t0, $$ = $0.$iter();
+					for (let i = 0, items = iter$(self.data()), len = items.length, movie; i < len; i++) {
+						movie = items[i];
+						if (!filterMovie(movie,{filter: self.filter(),stared: self.stared()})) { continue; };
+						$$.push((t0 = $0[i] || (t0=_1('tr',$0,i)).setContent([
+							_1('td',t0.$,'A',t0),
+							_1('td',t0.$,'B',t0),
+							_1('td',t0.$,'C',t0).setContent(
+								t0.$.D || _1('a',t0.$,'D','C')
+							,2)
+						],2)).end((
+							t0.$.A.setContent(movie.title,3),
+							t0.$.B.setContent(movie.rating,3),
+							t0.$.D.on$(0,['click',function() { return movie.stared = !movie.stared; }],self).setText("" + (movie.stared ? "★" : "☆"))
+						,true)));
+					};return $$;
+				})($[16] || _2($,16,$[15]))
+			,5)
+		,true));
+	};
+});
+
+
+Imba.mount((t0 = (t0=_1('div')).setId('app')).setTemplate(function() {
+	var $ = this.$, t0;
+	return ($[0] || _1(App,$,0,t0)).setData(movies).end();
+}).end());
+
+
+
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -472,7 +475,7 @@ module.exports = __webpack_require__(4);
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var Imba = __webpack_require__(1);
+/* WEBPACK VAR INJECTION */(function(global) {var Imba = __webpack_require__(0);
 var activate = false;
 var ns = ((typeof window !== 'undefined') ? window : (((typeof global !== 'undefined') ? global : null)));
 
@@ -534,7 +537,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 function iter$(a){ return a ? (a.toArray ? a.toArray() : a) : []; };
-var Imba = __webpack_require__(1);
+var Imba = __webpack_require__(0);
 
 var requestAnimationFrame; 
 var cancelAnimationFrame;
@@ -880,7 +883,7 @@ Imba.Scheduler.prototype.onevent = function (event){
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Imba = __webpack_require__(1);
+var Imba = __webpack_require__(0);
 
 __webpack_require__(8);
 __webpack_require__(9);
@@ -889,7 +892,7 @@ Imba.TagManager = new Imba.TagManagerClass();
 
 __webpack_require__(10);
 __webpack_require__(11);
-__webpack_require__(2);
+__webpack_require__(1);
 __webpack_require__(12);
 __webpack_require__(13);
 
@@ -905,7 +908,7 @@ if (false) {};
 /***/ (function(module, exports, __webpack_require__) {
 
 function iter$(a){ return a ? (a.toArray ? a.toArray() : a) : []; };
-var Imba = __webpack_require__(1);
+var Imba = __webpack_require__(0);
 
 Imba.TagManagerClass = function TagManagerClass(){
 	this._inserts = 0;
@@ -1042,8 +1045,8 @@ Imba.TagManagerClass.prototype.tryUnmount = function (){
 /***/ (function(module, exports, __webpack_require__) {
 
 function iter$(a){ return a ? (a.toArray ? a.toArray() : a) : []; };
-var Imba = __webpack_require__(1);
-__webpack_require__(2);
+var Imba = __webpack_require__(0);
+__webpack_require__(1);
 
 var native$ = [
 	'keydown','keyup','keypress',
@@ -1277,7 +1280,7 @@ Imba.EventManager.prototype.ondisable = function (){
 /***/ (function(module, exports, __webpack_require__) {
 
 function iter$(a){ return a ? (a.toArray ? a.toArray() : a) : []; };
-var Imba = __webpack_require__(1);
+var Imba = __webpack_require__(0);
 
 Imba.CSSKeyMap = {};
 
@@ -2513,7 +2516,7 @@ Imba.Tag;
 /***/ (function(module, exports, __webpack_require__) {
 
 function iter$(a){ return a ? (a.toArray ? a.toArray() : a) : []; };
-var Imba = __webpack_require__(1);
+var Imba = __webpack_require__(0);
 
 Imba.defineTag('fragment', 'element', function(tag){
 	tag.createNode = function (){
@@ -2821,7 +2824,7 @@ Imba.extendTag('select', function(tag){
 /***/ (function(module, exports, __webpack_require__) {
 
 function iter$(a){ return a ? (a.toArray ? a.toArray() : a) : []; };
-var Imba = __webpack_require__(1);
+var Imba = __webpack_require__(0);
 
 
 
@@ -3321,7 +3324,7 @@ Imba.TouchGesture.prototype.ontouchend = function (e){
 /***/ (function(module, exports, __webpack_require__) {
 
 function iter$(a){ return a ? (a.toArray ? a.toArray() : a) : []; };
-var Imba = __webpack_require__(1);
+var Imba = __webpack_require__(0);
 
 var keyCodes = {
 	esc: 27,
@@ -3725,7 +3728,7 @@ function iter$(a){ return a ? (a.toArray ? a.toArray() : a) : []; };
 var self = {};
 // externs;
 
-var Imba = __webpack_require__(1);
+var Imba = __webpack_require__(0);
 
 var removeNested = function(root,node,caret) {
 	// if node/nodes isa String
